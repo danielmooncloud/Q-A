@@ -1,0 +1,15 @@
+		<div class="main">
+			<div class="new">
+				<input type="text" ng-model="question">
+				<button ng-click="addQuestion()" class="add">Add Question</button>
+			</div>
+			<div class="question" ng-repeat="question in questions">
+				<div class="question-text">
+					<h2>{{question.text}}</h2>
+				</div>
+				<div class="delete">
+					<button ng-click="deleteQuestion(question)">Delete</button>
+					<button><a href="/{{$index}}">See Answers</a></button>
+				</div>	
+			</div>
+		</div>
