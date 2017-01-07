@@ -9,3 +9,7 @@ mongoose.connect('mongodb://localhost:27017/qa', function(err) {
 		console.log("Successfully connected to the database");
 	}
 }) 
+
+var db = mongoose.connection;
+
+module.exports = db;

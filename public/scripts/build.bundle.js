@@ -8,8 +8,7 @@ webpackJsonp([0],[
 	var ngRoute = __webpack_require__(3);
 
 	var app = angular.module('qaApp', [ngRoute])
-	.config(function($routeProvider, $locationProvider) {
-		$locationProvider.html5Mode(true);
+	.config(function($routeProvider) {
 		$routeProvider
 			.when('/', {
 				controller: 'QCtrl',
@@ -24,8 +23,8 @@ webpackJsonp([0],[
 			})
 	})
 
-	__webpack_require__(8);
-	__webpack_require__(9);
+	__webpack_require__(5);
+	__webpack_require__(6);
 	__webpack_require__(7);
 
 /***/ },
@@ -33,8 +32,137 @@ webpackJsonp([0],[
 /* 2 */,
 /* 3 */,
 /* 4 */,
-/* 5 */,
-/* 6 */,
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var angular = __webpack_require__(1);
+
+	angular.module('qaApp').controller('QCtrl', ['$scope','dataService', function($scope, dataService) {
+
+
+		$scope.getCurrentUser = function() {
+			dataService.getCurrentUser(function(response) {
+				$scope.currentUser = response.data.username;
+			})
+		} 
+
+		$scope.getCurrentUser(); 
+
+
+
+		$scope.getQuestions = function() {
+			dataService.getQuestions(function(response) {
+				$scope.questions = response.data;
+				$scope.questions.forEach(function(question) {
+					if(question.createdBy !== $scope.currentUser) {
+						question.notMine = true;
+					} else {
+						question.notMine = false;
+					}
+				})
+			})
+		}
+
+		$scope.getQuestions();
+		
+
+		$scope.addQuestion = function() {
+			if($scope.input !== '' && $scope.input !== undefined) {
+				var question = {
+					"text" : $scope.input,
+					"createdAt" : Date.now()
+				} 
+
+				dataService.addQuestion(question, $scope.getQuestions);
+				$scope.input = '';
+			}
+			
+		}
+
+		$scope.deleteQuestion = function(question) {
+			dataService.deleteQuestion(question, $scope.getQuestions);
+		}
+
+		
+	}])
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var angular = __webpack_require__(1);
+
+	angular.module('qaApp').controller('ACtrl', ['$scope', '$routeParams', 'dataService', function($scope, $routeParams, dataService) {
+		
+		$scope.getCurrentUser = function() {
+			dataService.getCurrentUser(function(response) {
+				$scope.currentUser = response.data.username;
+			})
+		} 
+
+		$scope.getCurrentUser(); 
+
+
+		$scope.getQuestion = function() {
+			dataService.getQuestion($routeParams.id, function(response) {
+				$scope.question = response.data;
+				$scope.answers = $scope.question.answers;
+				$scope.answers.forEach(function(answer) {
+					if(answer.createdBy !== $scope.currentUser) {
+						answer.notMine = true;
+					} else {
+						answer.notMine = false;
+					}
+				})
+			})
+		} 
+
+		$scope.getQuestion();
+		
+		$scope.addAnswer = function() {
+			if($scope.input !== '' && $scope.input !== undefined) {
+				var answer = {
+				"text" : $scope.input,
+				"createdAt" : Date.now(),
+				"updatedAt" : Date.now(),
+				"votes" : []
+			}
+				dataService.addAnswer($routeParams.id, answer, $scope.getQuestion);
+				$scope.input = '';
+			}
+		}
+
+		$scope.deleteAnswer = function(answer) {
+			dataService.deleteAnswer($routeParams.id, answer, $scope.getQuestion);
+		}
+
+		$scope.updateAnswer = function(answer) {
+			answer.editing = false;
+			answer.updatedAt = Date.now();
+			dataService.updateAnswer($routeParams.id, answer, $scope.getQuestion);
+		}
+
+		$scope.upvote = function(answer) {
+			if(answer.votes.indexOf($scope.currentUser) === -1) {
+				answer.votes.push($scope.currentUser);
+				dataService.updateAnswer($routeParams.id, answer, $scope.getQuestion);
+			}
+			
+		}
+
+	}])
+
+
+
+
+
+
+
+/***/ },
 /* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -44,73 +172,39 @@ webpackJsonp([0],[
 
 	angular.module('qaApp').service('dataService', ['$http', function($http) {
 		
-		this.getQuestions = function(callback) {
-			$http.get('/api/questions').then(callback);
-		}
-
-		this.addQuestion = function(question) {
-			$http.post('/api/questions', question);
-		}
-
-		this.deleteQuestion = function(question) {
-			$http.delete('/api/questions/' + question._id);
-		}
-
 		
-	}])
-
-/***/ },
-/* 8 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var angular = __webpack_require__(1);
-
-	angular.module('qaApp').controller('QCtrl', ['$scope', 'dataService', function($scope, dataService) {
-
-		$scope.getQuestions = function() {
-			dataService.getQuestions(function(response) {
-				$scope.questions = response.data.questions;
-			})
-		}
-
-		$scope.getQuestions();
-		
-
-		$scope.addQuestion = function() {
-			var question = {
-				"text" : $scope.question,
-				"createdAt" : Date.now()
-			}
-
-			dataService.addQuestion(question);
-			$scope.getQuestions();
-			$scope.question = '';
-		}
-
-		$scope.deleteQuestion = function(question) {
-			dataService.deleteQuestion(question);
-			$scope.getQuestions();
-		}
-
-		$scope.logindex = function($index) {
-			console.log($index)
+		this.getCurrentUser = function(callback) {
+			return $http.get('/api/username').then(callback);
 		} 
-		
 
-		
-	}])
+		this.getQuestions = function(callback) {
+			return $http.get('/api/questions').then(callback);
+		}
 
-/***/ },
-/* 9 */
-/***/ function(module, exports, __webpack_require__) {
+		this.addQuestion = function(question, callback) {
+			return $http.post('/api/questions', question).then(callback);
+		}
 
-	'use strict';
+		this.deleteQuestion = function(question, callback) {
+			return $http.delete('/api/questions/' + question._id).then(callback);
+		}
 
-	var angular = __webpack_require__(1);
+		this.getQuestion = function(id, callback) {
+			return $http.get('/api/questions/' + id).then(callback);
+		}
 
-	angular.module('qaApp').controller('ACtrl', ['$scope', '$routeParams', 'dataService', function($scope, $routeParams, dataService) {
+		this.addAnswer = function(id, answer, callback) {
+			return $http.post('/api/questions/' + id + '/answers', answer).then(callback);
+		}
+
+		this.deleteAnswer = function(id, answer, callback) {
+			return $http.delete('/api/questions/' + id + '/answers/' + answer._id).then(callback);
+		}
+
+		this.updateAnswer = function(id, answer, callback) {
+			return $http.put('/api/questions/' + id + '/answers/' + answer._id, answer).then(callback);
+		}
+
 		
 	}])
 

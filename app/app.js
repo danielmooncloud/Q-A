@@ -4,8 +4,7 @@ var angular = require('angular');
 var ngRoute = require('angular-route');
 
 var app = angular.module('qaApp', [ngRoute])
-.config(function($routeProvider, $locationProvider) {
-	$locationProvider.html5Mode(true);
+.config(function($routeProvider) {
 	$routeProvider
 		.when('/', {
 			controller: 'QCtrl',
