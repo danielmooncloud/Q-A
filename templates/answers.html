@@ -1,21 +1,45 @@
-		<div class="main">
-			<div class="new">
-				<input type="text" ng-model="answer">
-				<button class="add">Add Answer</button>
-			</div>
 			
-			<div class="question">
-				<div class="question-text">
-					<h2>The question will go Here</h2>
+
+
+
+			<div class="main">	
+				<div class="question">
+					<label id="quote">{{question.text}}</label>
+					<h4 class="author"> - {{question.createdBy}}</h4>
+				</div>
+				
+
+				<form>	
+					<div class="form-group new">
+						<input id="new-answer-input" type="text" ng-model="input">
+						
+						<button class="submit" ng-click="addAnswer()">Add Answer</button> 
+					</div>
+				</form>
+
+				
+			
+
+				<div class="row" ng-repeat="answer in question.answers">
+					
+					<div class="col-xs-1">
+						<label ng-click="upvote(answer)" class="votes">{{answer.votes.length}}</label>
+						
+
+					</div>
+
+					<div class="col-xs-9">
+						<h3 class="asks">{{answer.createdBy}} replied:</h3>
+						<label  class="text" ng-click="answer.editing=true" ng-hide="answer.editing && !answer.notMine">{{answer.text}}</label>
+						<input ng-blur="updateAnswer(answer)" ng-show="answer.editing && !answer.notMine" type="text" ng-model="answer.text" class="editing-label"> 	
+					</div>
+					
+					<div class="col-xs-2">	
+						<span ng-hide="answer.notMine" class="pull-right delete" ng-click="deleteAnswer(answer)">X</span>
+						
+					</div>	
+
+					
 				</div>
 			</div>
-			
-			<div class="answer">
-				<div class="answer-text">
-					<h2>The answers will go here</h2>
-				</div>
-				<div class="delete">
-					<button>Delete</button>
-				</div>	
-			</div>
-		</div>
+		
