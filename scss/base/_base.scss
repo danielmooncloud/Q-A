@@ -1,0 +1,59 @@
+
+body {
+	@include image('wood');
+	background-repeat: repeat-y;
+}
+
+.main {
+	border-radius: 1%;
+	background: rgba(1,1,1,0);
+}
+
+input {
+	border: 1px solid black;
+	background: rgba(255,255,255,.5);
+}
+
+input:focus {
+	outline: none;
+}
+
+.row {
+	border: 3px solid black;
+	border-radius: 2%;
+	background: rgba(255,255,255,.5);
+}
+
+.question {
+	background: rgba(0,0,0,0);
+}
+
+
+.register {
+	border: 1px solid black;
+	background: rgba(1,1,1,.6);
+}
+
+.submit {
+	cursor: pointer;
+	background: rgba(1,1,1,.5);
+}
+
+#pw, #pw2, #name, #username {
+	border: 3px solid black;
+}
+
+.logout {
+	background: rgba(1,1,1,.6);
+}
+.navbar {
+	background: rgba(0,0,0,.8);
+}
+
+.main-error {
+	background: rgba(0,0,0,0);
+}
+
+#new-question-input, #new-answer-input {
+	border: 2px solid black;
+}

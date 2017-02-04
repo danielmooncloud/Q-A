@@ -1,0 +1,28 @@
+// colors 
+
+
+$black			: rgb(0,0,0);
+$white			: #fff;
+$grey			: grey;
+$panel-green	: rgb(0, 167, 74);
+$panel-red		: rgb(159, 15, 23);
+$panel-yellow	: rgb(204, 167, 7);
+$panel-blue		: rgb(9, 74, 143);
+$green 			: green;
+$yellow 		: yellow;
+$red 			: rgb(200, 0, 0);
+
+
+//paths
+$path-img		: '../images/';
+$path-font		: 'https://fonts.googleapis.com/css?family=';
+
+
+//font-stacks
+
+$stack-sans-serif	:	Helvetica, Arial, sans-serif;
+$stack-orbitron		:	'Orbitron', $stack-sans-serif;
+
+//media queries
+
+$break-phone		:	'screen and (max-width: 480px)'

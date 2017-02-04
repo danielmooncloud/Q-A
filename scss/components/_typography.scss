@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower');
+@import url('https://fonts.googleapis.com/css?family=Anton');
+
+
+
+body {
+	font-family: 'Indie Flower', cursive;
+	font-weight: bold;
+}
+
+.new {
+	text-align: center;
+}
+
+input {
+	font-size: 28px;
+}
+
+.text {
+	color: black;
+	font-size: 30px;
+	overflow: hidden;
+}
+
+.arrows {
+	font-size: 30px;
+}
+
+.asks {
+	color: #2C4770;
+}
+
+.votes {
+	color: black;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+.question {
+	font-size: 36px;
+	color: white;
+	text-align: center;
+}
+
+nav {
+	text-align: right;
+}
+
+.register {
+	text-align: left;
+	color: white;
+}
+
+.signup {
+	color: #4A9AD3;
+	font-size: 20px;
+}
+
+
+.delete {
+	cursor: pointer;
+}
+
+.submit {
+	color: white;
+	font-size: 18px;
+	cursor: pointer;
+}
+
+label {
+	font-size: 40px;
+}
+
+#pw, #pw2, #name, #username {
+	color: black;
+}
+
+.login-button {
+	font-size: 20px;
+}
+
+.logout a {
+	color: white;
+	text-decoration: none;
+	font-size: 18px;
+}
+
+
+.username {
+	color: white;
+}
+
+.main-error {
+	text-align: center;
+}
+
+.error {
+	font-size: 72px;
+	color: white;
+}
