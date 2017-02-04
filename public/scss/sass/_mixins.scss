@@ -1,0 +1,8 @@
+@mixin font-face($font-family) {
+	@import url('#{$path-font}#{$font-family}');
+}
+
+@mixin image($image, $size: cover) {
+	background-image: url('#{$path-img}#{$image}.jpg');
+	background-size: $size;
+}
