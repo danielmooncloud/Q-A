@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Indie+Flower");
-@import url("https://fonts.googleapis.com/css?family=Anton");
+.new, .question, .main-error {
+  text-align: center; }
+
+a, .logout a {
+  text-decoration: none; }
+
 body {
   background-image: url("../images/wood.jpg");
   background-size: cover;
@@ -8,6 +13,9 @@ body {
 .main {
   border-radius: 1%;
   background: rgba(1, 1, 1, 0); }
+  @media screen and (max-width: 1200px) {
+    .main {
+      background: transparent; } }
 
 input {
   border: 1px solid black;
@@ -22,11 +30,15 @@ input:focus {
   background: rgba(255, 255, 255, 0.5); }
 
 .question {
-  background: transparent; }
+  background: rgba(1, 1, 1, 0); }
 
 .register {
   border: 1px solid black;
   background: rgba(1, 1, 1, 0.6); }
+  @media screen and (max-width: 1200px) {
+    .register {
+      background: transparent;
+      border: none; } }
 
 .submit {
   cursor: pointer;
@@ -39,27 +51,24 @@ input:focus {
   background: rgba(1, 1, 1, 0.6); }
 
 .navbar {
-  background: rgba(0, 0, 0, 0.8); }
+  background: rgba(1, 1, 1, 0.8); }
 
 .main-error {
-  background: transparent; }
+  background: rgba(1, 1, 1, 0); }
 
 #new-question-input, #new-answer-input {
   border: 2px solid black; }
 
 body {
-  font-family: 'Indie Flower', cursive;
+  font-family: "Indie Flower", Helvetica, Arial, sans-serif;
   font-weight: bold; }
-
-.new {
-  text-align: center; }
 
 input {
   font-size: 28px; }
 
 .text {
-  color: black;
   font-size: 30px;
+  color: black;
   overflow: hidden; }
 
 .arrows {
@@ -72,31 +81,29 @@ input {
   color: black; }
 
 a {
-  text-decoration: none;
   color: black; }
 
 .question {
   font-size: 36px;
-  color: white;
-  text-align: center; }
+  color: #fff; }
 
 nav {
   text-align: right; }
 
 .register {
   text-align: left;
-  color: white; }
+  color: #fff; }
 
 .signup {
-  color: #4A9AD3;
-  font-size: 20px; }
+  font-size: 24px;
+  color: #4A9AD3; }
 
 .delete {
   cursor: pointer; }
 
 .submit {
-  color: white;
-  font-size: 18px;
+  font-size: 24px;
+  color: #fff;
   cursor: pointer; }
 
 label {
@@ -109,22 +116,22 @@ label {
   font-size: 20px; }
 
 .logout a {
-  color: white;
-  text-decoration: none;
-  font-size: 18px; }
+  font-size: 20px;
+  color: #fff; }
 
 .username {
-  color: white; }
-
-.main-error {
-  text-align: center; }
+  color: #fff; }
 
 .error {
   font-size: 72px;
-  color: white; }
+  color: #fff; }
+
+@media screen and (max-width: 992px) {
+  #quote {
+    font-size: 18px; } }
 
 button {
-  background: transparent; }
+  background: rgba(1, 1, 1, 0); }
 
 button:focus {
   outline: none; }
@@ -134,6 +141,9 @@ button:focus {
   min-height: 1300px;
   margin: 10% auto;
   padding-top: 50px; }
+  @media screen and (max-width: 1200px) {
+    .main {
+      width: 100%; } }
 
 input {
   width: 800px;
@@ -144,6 +154,11 @@ form {
   min-height: 120px;
   margin: 0 auto;
   margin-bottom: 80px; }
+  @media break-xlarge {
+    form {
+      width: 70%;
+      margin: 0 auto;
+      margin-bottom: 80px; } }
 
 .form-group {
   margin-top: 0;
@@ -154,6 +169,13 @@ form {
   height: 800px;
   margin: 5% auto;
   padding: 70px; }
+  @media screen and (max-width: 1200px) {
+    .register {
+      width: 90%;
+      max-width: 400px;
+      margin-top: 2%;
+      height: 700px;
+      padding: 20px; } }
 
 .login-button {
   margin-top: 20px;
@@ -171,9 +193,19 @@ form {
 
 .submit {
   padding-left: 10px; }
+  @media screen and (max-width: 1400px) {
+    .submit {
+      margin-top: 30px; } }
 
 #new-question-input, #new-answer-input {
   margin: 0 auto; }
+  @media screen and (max-width: 1400px) {
+    #new-question-input, #new-answer-input {
+      max-width: 100%; } }
+  @media screen and (max-width: 992px) {
+    #new-question-input, #new-answer-input {
+      width: 80%;
+      margin: 0 auto; } }
 
 .row {
   width: 80%;
@@ -181,11 +213,17 @@ form {
   margin: 0 auto;
   padding-top: -20px;
   margin-bottom: 30px; }
+  @media screen and (max-width: 660px) {
+    .row {
+      width: 95%; } }
 
 .text {
   padding-top: 10px;
   width: 90%;
   max-height: 48px; }
+  @media screen and (max-width: 992px) {
+    .text {
+      width: 80%; } }
 
 .arrows {
   padding-left: 10px;

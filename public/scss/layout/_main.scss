@@ -4,6 +4,9 @@
 	min-height: 1300px;
 	margin: 10% auto;
 	padding-top: 50px;
+	@media #{$break-desktop} {
+		width: 100%;
+	}
 }
 
 input {

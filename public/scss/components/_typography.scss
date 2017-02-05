@@ -1,48 +1,45 @@
-@import url('https://fonts.googleapis.com/css?family=Indie+Flower');
-@import url('https://fonts.googleapis.com/css?family=Anton');
 
+@include font-face('Indie+Flower');
 
 
 body {
-	font-family: 'Indie Flower', cursive;
+	font-family: $stack-indieflower;
 	font-weight: bold;
 }
 
 .new {
-	text-align: center;
+	@extend %centered;
 }
 
 input {
-	font-size: 28px;
+	@include font(28px);
 }
 
 .text {
-	color: black;
-	font-size: 30px;
+	@include font(30px, black);
 	overflow: hidden;
 }
 
 .arrows {
-	font-size: 30px;
+	@include font(30px);
 }
 
 .asks {
-	color: #2C4770;
+	color: $blue;
 }
 
 .votes {
-	color: black;
+	color: $black;
 }
 
 a {
-	text-decoration: none;
-	color: black;
+	@extend %decoration;
+	color: $black;
 }
 
 .question {
-	font-size: 36px;
-	color: white;
-	text-align: center;
+	@include font(36px, $white);
+	@extend %centered;
 }
 
 nav {
@@ -51,53 +48,53 @@ nav {
 
 .register {
 	text-align: left;
-	color: white;
+	color: $white;
 }
 
 .signup {
-	color: #4A9AD3;
-	font-size: 20px;
+	@include font(24px, $lightblue);
 }
-
 
 .delete {
 	cursor: pointer;
 }
 
 .submit {
-	color: white;
-	font-size: 18px;
+	@include font(24px, $white);
 	cursor: pointer;
 }
 
 label {
-	font-size: 40px;
+	@include font(40px);
 }
 
 #pw, #pw2, #name, #username {
-	color: black;
+	color: $black;
 }
 
 .login-button {
-	font-size: 20px;
+	@include font(20px);
 }
 
 .logout a {
-	color: white;
-	text-decoration: none;
-	font-size: 18px;
+	@include font(20px, $white);
+	@extend %decoration;
 }
 
-
 .username {
-	color: white;
+	color: $white;
 }
 
 .main-error {
-	text-align: center;
+	@extend %centered;
 }
 
 .error {
-	font-size: 72px;
-	color: white;
+	@include font(72px, $white);
+}
+
+#quote {
+	@media #{$break-laptop} {
+		font-size: 18px;
+	}
 }
