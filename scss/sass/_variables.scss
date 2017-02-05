@@ -2,6 +2,8 @@
 
 
 $black			: rgb(0,0,0);
+$transparent	: rgba(0,0,0,0);
+$seethroughwhite: rgba(255,255,255,.5);
 $white			: #fff;
 $grey			: grey;
 $panel-green	: rgb(0, 167, 74);
@@ -11,6 +13,8 @@ $panel-blue		: rgb(9, 74, 143);
 $green 			: green;
 $yellow 		: yellow;
 $red 			: rgb(200, 0, 0);
+$blue 			: #2C4770;
+$lightblue		: #4A9AD3;
 
 
 //paths
@@ -21,8 +25,11 @@ $path-font		: 'https://fonts.googleapis.com/css?family=';
 //font-stacks
 
 $stack-sans-serif	:	Helvetica, Arial, sans-serif;
-$stack-orbitron		:	'Orbitron', $stack-sans-serif;
+$stack-indieflower	:	'Indie Flower', $stack-sans-serif;
 
 //media queries
 
-$break-phone		:	'screen and (max-width: 480px)'
+$break-tablet		:	'screen and (max-width: 660px)';
+$break-laptop		:	'screen and (max-width: 992px)';
+$break-desktop		:	'screen and (max-width: 1200px)';
+$break-xlarge		:	'screen and (max-width: 1400px)';

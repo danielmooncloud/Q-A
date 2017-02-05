@@ -6,3 +6,12 @@
 	background-image: url('#{$path-img}#{$image}.jpg');
 	background-size: $size;
 }
+
+@mixin opacity($num) {
+	background: rgba(1, 1, 1, $num);
+}
+
+@mixin font($font-size, $color: null) {
+	font-size: $font-size;
+	color: $color;
+}

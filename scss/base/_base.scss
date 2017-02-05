@@ -6,12 +6,15 @@ body {
 
 .main {
 	border-radius: 1%;
-	background: rgba(1,1,1,0);
+	@include opacity(0);
+	@media #{$break-desktop} {
+		background: rgba(0,0,0,0);
+	}
 }
 
 input {
-	border: 1px solid black;
-	background: rgba(255,255,255,.5);
+	border: 1px solid $black;
+	background: $seethroughwhite;
 }
 
 input:focus {
@@ -19,41 +22,45 @@ input:focus {
 }
 
 .row {
-	border: 3px solid black;
+	border: 3px solid $black;
 	border-radius: 2%;
-	background: rgba(255,255,255,.5);
+	background: $seethroughwhite;
 }
 
 .question {
-	background: rgba(0,0,0,0);
+	@include opacity(0);
 }
 
 
 .register {
-	border: 1px solid black;
-	background: rgba(1,1,1,.6);
+	border: 1px solid $black;
+	@include opacity(.6);
+	@media #{$break-desktop} {
+		background: rgba(0,0,0,0);
+		border: none;
+	}
 }
 
 .submit {
 	cursor: pointer;
-	background: rgba(1,1,1,.5);
+	@include opacity(.5);
 }
 
 #pw, #pw2, #name, #username {
-	border: 3px solid black;
+	border: 3px solid $black;
 }
 
 .logout {
-	background: rgba(1,1,1,.6);
+	@include opacity(.6);
 }
 .navbar {
-	background: rgba(0,0,0,.8);
+	@include opacity(.8);
 }
 
 .main-error {
-	background: rgba(0,0,0,0);
+	@include opacity(0);
 }
 
 #new-question-input, #new-answer-input {
-	border: 2px solid black;
+	border: 2px solid $black;
 }

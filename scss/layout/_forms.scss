@@ -2,6 +2,11 @@ form {
 	min-height: 120px;
 	margin: 0 auto;
 	margin-bottom: 80px;
+	@media #{break-xlarge} {
+		width: 70%;
+		margin: 0 auto;
+		margin-bottom: 80px;
+	}
 }
 
 .form-group {
@@ -14,6 +19,13 @@ form {
 	height: 800px;
 	margin: 5% auto;
 	padding: 70px;
+	@media #{$break-desktop} {
+		width: 90%;
+		max-width: 400px;
+		margin-top: 2%;
+		height: 700px;
+		padding: 20px;
+	}
 }
 
 .login-button {
@@ -35,8 +47,19 @@ form {
 
 .submit {
 	padding-left: 10px;
+	@media #{$break-xlarge} {
+		margin-top: 30px;
+	}
 }
 
 #new-question-input, #new-answer-input {
 	margin: 0 auto;
+	@media #{$break-xlarge} {
+		max-width: 100%;
+	}
+	@media #{$break-laptop} {
+		width: 80%;
+		margin: 0 auto;
+	}
 }
+
