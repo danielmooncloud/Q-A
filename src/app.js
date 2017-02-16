@@ -10,6 +10,8 @@ var api = require('./api');
 var routes = require('./routes');
 var app = express();
 var db = require('./database');
+var favicon = require('serve-favicon');
+var port = process.env.PORT || 3000;
 
 
 app.use(cookieParser());
@@ -37,6 +39,7 @@ app.use(parser.urlencoded({
 
 
 app.use(express.static('public'));
+app.use(favicon('./public/images/newspaper.png'));
 
 app.set('view engine', 'pug');
 app.set('views', __dirname + '/views');
@@ -62,8 +65,8 @@ app.use(function(err, req, res, next) {
 
 
 
-app.listen(3000, function() {
-	console.log("The server is now running on port 3000");
+app.listen(port, function() {
+	console.log("The server is now running on port" + port);
 }) 
 
 
