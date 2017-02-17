@@ -8,6 +8,9 @@
   },
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node":"7.5.0"
+  },
   "dependencies": {
     "angular": "^1.6.1",
     "angular-route": "^1.6.1",
