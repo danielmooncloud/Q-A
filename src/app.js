@@ -27,6 +27,7 @@ app.use(session({
 
 
 app.use(function(req, res, next) {
+	console.log()
 	res.locals.id = req.session.userId;
 	res.locals.user = req.session.username;
 	next();
