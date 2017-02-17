@@ -66,7 +66,7 @@ app.use(function(err, req, res, next) {
 
 
 app.listen(port, function() {
-	console.log("The server is now running on port" + port);
+	console.log("The server is now running on port " + port);
 }) 
 
 
