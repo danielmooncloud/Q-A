@@ -1,12 +1,8 @@
-'use strict';
 
-var angular = require('angular');
+const QCtrl = ($scope, dataService) => {
 
-angular.module('qaApp').controller('QCtrl', ['$scope','dataService', function($scope, dataService) {
-
-
-	$scope.getCurrentUser = function() {
-		dataService.getCurrentUser(function(response) {
+	$scope.getCurrentUser = () => {
+		dataService.getCurrentUser((response) => {
 			$scope.currentUser = response.data.username;
 		})
 	} 
@@ -15,10 +11,10 @@ angular.module('qaApp').controller('QCtrl', ['$scope','dataService', function($s
 
 
 
-	$scope.getQuestions = function() {
-		dataService.getQuestions(function(response) {
+	$scope.getQuestions = () => {
+		dataService.getQuestions((response) => {
 			$scope.questions = response.data;
-			$scope.questions.forEach(function(question) {
+			$scope.questions.forEach((question) => {
 				if(question.createdBy !== $scope.currentUser) {
 					question.notMine = true;
 				} else {
@@ -31,7 +27,7 @@ angular.module('qaApp').controller('QCtrl', ['$scope','dataService', function($s
 	$scope.getQuestions();
 	
 
-	$scope.addQuestion = function() {
+	$scope.addQuestion = () => {
 		if($scope.input !== '' && $scope.input !== undefined) {
 			var question = {
 				"text" : $scope.input,
@@ -44,9 +40,9 @@ angular.module('qaApp').controller('QCtrl', ['$scope','dataService', function($s
 		
 	}
 
-	$scope.deleteQuestion = function(question) {
+	$scope.deleteQuestion = (question) => {
 		dataService.deleteQuestion(question, $scope.getQuestions);
 	}
+}
 
-	
-}])
+export default QCtrl;

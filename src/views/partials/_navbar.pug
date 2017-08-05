@@ -1,6 +1,6 @@
 nav.navbar.navbar-default.navbar-fixed-top
   .container-fluid   
-    if id
+    if user
       h3.pull-left.username Logged in as #{user}
       button.logout 
         a(href="/logout") logout

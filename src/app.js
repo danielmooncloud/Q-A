@@ -1,17 +1,17 @@
 'use strict';
 
-var express = require('express');
-var parser = require('body-parser');
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
-var MongoStore = require('connect-mongo')(session);
-var mid = require('./middleware');
-var api = require('./api');
-var routes = require('./routes');
-var app = express();
-var db = require('./database');
-var favicon = require('serve-favicon');
-var port = process.env.PORT || 3000;
+const express = require('express');
+const parser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+const mid = require('./middleware');
+const api = require('./api');
+const routes = require('./routes');
+const app = express();
+const db = require('./database');
+const favicon = require('serve-favicon');
+const port = process.env.PORT || 3000;
 
 
 app.use(cookieParser());
@@ -21,17 +21,18 @@ app.use(session({
 	resave: true,
 	saveUninitialized: false,
 	store: new MongoStore({
-	mongooseConnection: db
+		mongooseConnection: db
 	})
 }))
 
 
-app.use(function(req, res, next) {
-	console.log()
-	res.locals.id = req.session.userId;
+
+//res.locals allows variables to be used in templates
+app.use((req, res, next) => {
 	res.locals.user = req.session.username;
 	next();
 })
+
 
 app.use(parser.json());
 app.use(parser.urlencoded({
@@ -53,22 +54,20 @@ app.use('/', routes);
 
 
 //Route Not Found
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
 	var err = new Error("Not Found");
 	err.status = 404;
 	next(err);
 })
 
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
 	res.status(err.status || 500);
 	res.render('error', {message : err.message});
 })
 
 
 
-app.listen(port, function() {
-	console.log("The server is now running on port " + port);
-}) 
+app.listen(port, () => console.log("The server is now running on port " + port));
 
 
 

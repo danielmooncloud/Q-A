@@ -12,6 +12,15 @@ module.exports = {
 		path: __dirname + '/public/scripts',
 		filename: 'build.bundle.js'
 	},
+	module: {
+		loaders: [
+			{
+				test: /\.js$/,
+				exclude: /node_modules/,
+				loader: "babel-loader"
+			}
+		]
+	},
 	plugins: [
 		new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.bundle.js")
 	]

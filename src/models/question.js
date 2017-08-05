@@ -1,16 +1,14 @@
 'use strict';
 
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 
-var sortFunction = function(a, b) {
-	if(a.votes === b.votes) {
-		return b.updatedAt - a.updatedAt;
-	}
+const sortFunction = (a, b) => {
+	if(a.votes === b.votes) return b.updatedAt - a.updatedAt;
 	return b.votes - a.votes;
 }
 
-var AnswerSchema = new mongoose.Schema({
+const AnswerSchema = new mongoose.Schema({
 	"text" : String,
 	"createdAt" : {type: Date, default: Date.now},
 	"createdBy" : String,
@@ -24,7 +22,7 @@ AnswerSchema.method("update", function(updates, callback) {
 })
 
 
-var QuestionSchema = new mongoose.Schema({
+const QuestionSchema = new mongoose.Schema({
 	"text" : String,
 	"createdAt" : {type: Date, default: Date.now},
 	"createdBy"	: String,
@@ -36,6 +34,6 @@ QuestionSchema.pre("save", function(next) {
 	next();
 })
 
-var Question = mongoose.model("Question", QuestionSchema);
+const Question = mongoose.model("Question", QuestionSchema);
 
 module.exports = Question;

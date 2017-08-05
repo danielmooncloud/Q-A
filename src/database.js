@@ -1,8 +1,8 @@
 'use strict';
 
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/qa', function(err) {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/qa', (err) => {
 	if(err) {
 		console.log("There was an error connecting to the database");
 	} else {
@@ -10,6 +10,6 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/qa', func
 	}
 }) 
 
-var db = mongoose.connection;
+const db = mongoose.connection;
 
 module.exports = db;

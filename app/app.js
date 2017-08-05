@@ -1,24 +1,13 @@
-'use strict';
-
-var angular = require('angular');
-var ngRoute = require('angular-route');
+import angular from "angular";
+import ngRoute from "angular-route";
+import AppConfig from "./scripts/config/AppConfig.js";
+import ACtrl from "./scripts/controllers/ACtrl.js";
+import QCtrl from "./scripts/controllers/QCtrl.js";
+import dataService from "./scripts/services/dataService.js";
 
 var app = angular.module('qaApp', [ngRoute])
-.config(function($routeProvider) {
-	$routeProvider
-		.when('/', {
-			controller: 'QCtrl',
-			templateUrl: 'templates/questions.html'		
-		})
-		.when('/:id', {
-			controller: 'ACtrl',
-			templateUrl: 'templates/answers.html'
-		})
-		.otherwise({
-			redirectTo: '/'
-		})
-})
+.config(["$routeProvider", AppConfig])
+.service('dataService', ['$http', dataService])
+.controller('ACtrl', ['$scope', '$routeParams', "dataService", ACtrl])
+.controller('QCtrl', ['$scope', "dataService", QCtrl])
 
-require('./scripts/controllers/QCtrl.js');
-require('./scripts/controllers/ACtrl.js');
-require('./scripts/services/dataService.js');

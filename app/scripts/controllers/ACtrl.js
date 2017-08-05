@@ -1,11 +1,9 @@
-'use strict';
 
-var angular = require('angular');
 
-angular.module('qaApp').controller('ACtrl', ['$scope', '$routeParams', 'dataService', function($scope, $routeParams, dataService) {
+const ACtrl = ($scope, $routeParams, dataService) => {
 	
-	$scope.getCurrentUser = function() {
-		dataService.getCurrentUser(function(response) {
+	$scope.getCurrentUser = () => {
+		dataService.getCurrentUser((response) => {
 			$scope.currentUser = response.data.username;
 		})
 	} 
@@ -13,11 +11,11 @@ angular.module('qaApp').controller('ACtrl', ['$scope', '$routeParams', 'dataServ
 	$scope.getCurrentUser(); 
 
 
-	$scope.getQuestion = function() {
-		dataService.getQuestion($routeParams.id, function(response) {
+	$scope.getQuestion = () => {
+		dataService.getQuestion($routeParams.id, (response) => {
 			$scope.question = response.data;
 			$scope.answers = $scope.question.answers;
-			$scope.answers.forEach(function(answer) {
+			$scope.answers.forEach((answer) => {
 				if(answer.createdBy !== $scope.currentUser) {
 					answer.notMine = true;
 				} else {
@@ -29,7 +27,7 @@ angular.module('qaApp').controller('ACtrl', ['$scope', '$routeParams', 'dataServ
 
 	$scope.getQuestion();
 	
-	$scope.addAnswer = function() {
+	$scope.addAnswer = () => {
 		if($scope.input !== '' && $scope.input !== undefined) {
 			var answer = {
 			"text" : $scope.input,
@@ -42,17 +40,16 @@ angular.module('qaApp').controller('ACtrl', ['$scope', '$routeParams', 'dataServ
 		}
 	}
 
-	$scope.deleteAnswer = function(answer) {
-		dataService.deleteAnswer($routeParams.id, answer, $scope.getQuestion);
-	}
+	$scope.deleteAnswer = (answer) => dataService.deleteAnswer($routeParams.id, answer, $scope.getQuestion);
+	
 
-	$scope.updateAnswer = function(answer) {
+	$scope.updateAnswer = (answer) => {
 		answer.editing = false;
 		answer.updatedAt = Date.now();
 		dataService.updateAnswer($routeParams.id, answer, $scope.getQuestion);
 	}
 
-	$scope.upvote = function(answer) {
+	$scope.upvote = (answer) => {
 		if(answer.votes.indexOf($scope.currentUser) === -1) {
 			answer.votes.push($scope.currentUser);
 			dataService.updateAnswer($routeParams.id, answer, $scope.getQuestion);
@@ -60,7 +57,9 @@ angular.module('qaApp').controller('ACtrl', ['$scope', '$routeParams', 'dataServ
 		
 	}
 
-}])
+};
+
+export default ACtrl;
 
 
 

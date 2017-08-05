@@ -1,9 +1,9 @@
 'use strict';
 
-var mongoose = require('mongoose');
-var bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
-var UserSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
 	name : {
 		type: String,
 		required: true,
@@ -21,42 +21,41 @@ var UserSchema = new mongoose.Schema({
 	}
 })
 
-UserSchema.statics.authenticate = function(username, password, callback) {
+
+// Takes a username and password, looks up the record with a matching username and verifies the password
+UserSchema.statics.authenticate = (username, password, callback) => {
 	User.findOne({ username: username})
-		.exec(function(error, user) {
-			if(error) {
-				return callback(error)
-			} else if(!user) {
-				var err = new Error('User not found');
+		.exec((error, user) => {
+			if(error) return callback(error)
+			else if(!user) {
+				const err = new Error('User not found');
 				err.status = 401;
 				return callback(err);
 			}
+			//bcrypt.compare compares the supplied password with the encrypted password in the record
 			bcrypt.compare(password, user.password, function(err, result) {
-				if(result === true) {
-					return callback(null, user)
-				} else {
-					var err = new Error('Password or username not valid');
+				if(result === true) return callback(null, user)
+				else {
+					const err = new Error('Password or username not valid');
 					err.status = 401;
 					return callback(err);
 				}
 			})
-
-	})
-	
+		})
 };
 
 
-UserSchema.pre("save", function(next) {
-	var user = this;
-	bcrypt.hash(user.password, 10, function(err, hash) {
+
+// encrypts the supplied password before saving the user
+UserSchema.pre("save", (next) => {
+	const user = this;
+	bcrypt.hash(user.password, 10, (err, hash) => {
 		if(err) return next(err);
 		user.password = hash;
 		next();
 	})
 })
 
-var User = mongoose.model('User', UserSchema);
-
-
+const User = mongoose.model('User', UserSchema);
 
 module.exports = User;
