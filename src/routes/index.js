@@ -8,7 +8,6 @@ const router = express.Router();
 
 
 router.get('/qa', mid.requiresLogin, (req, res, next) =>  {
-	console.log(req.cookies);
 	res.render('index');
 })
 
