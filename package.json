@@ -23,6 +23,7 @@
     "express": "^4.15.4",
     "express-session": "^1.15.5",
     "mongoose": "^4.11.5",
+    "newrelic": "^2.2.2",
     "pug": "^2.0.0-rc.3",
     "serve-favicon": "^2.4.3"
   },

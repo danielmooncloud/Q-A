@@ -1,4 +1,4 @@
-const AppConfig = ($routeProvider) => {
+const AppConfig = $routeProvider => 
 	$routeProvider
 		.when('/', {
 			controller: 'QCtrl',
@@ -11,7 +11,6 @@ const AppConfig = ($routeProvider) => {
 		.otherwise({
 			redirectTo: '/'
 		})
-}
 
 
 export default AppConfig;

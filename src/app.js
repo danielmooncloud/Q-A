@@ -1,5 +1,5 @@
 'use strict';
-
+require("newrelic");
 const express = require('express');
 const parser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -24,7 +24,6 @@ app.use(session({
 		mongooseConnection: db
 	})
 }))
-
 
 
 //res.locals allows variables to be used in templates
