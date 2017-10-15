@@ -1,5 +1,5 @@
 'use strict';
-require("newrelic");
+//require("newrelic");
 const express = require('express');
 const parser = require('body-parser');
 const cookieParser = require('cookie-parser');
