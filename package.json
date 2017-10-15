@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "engines": {
-    "node": "7.5.0"
+    "node": "8.3.0"
   },
   "dependencies": {
     "angular": "^1.6.5",
