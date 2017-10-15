@@ -1,6 +1,6 @@
 webpackJsonp([0],[
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
@@ -32,13 +32,13 @@ webpackJsonp([0],[
 
 	var app = _angular2.default.module('qaApp', [_angularRoute2.default]).config(["$routeProvider", _AppConfig2.default]).service('dataService', ['$http', _dataService2.default]).controller('ACtrl', ['$scope', '$routeParams', "dataService", _ACtrl2.default]).controller('QCtrl', ['$scope', "dataService", _QCtrl2.default]);
 
-/***/ },
+/***/ }),
 /* 1 */,
 /* 2 */,
 /* 3 */,
 /* 4 */,
 /* 5 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -46,7 +46,7 @@ webpackJsonp([0],[
 		value: true
 	});
 	var AppConfig = function AppConfig($routeProvider) {
-		$routeProvider.when('/', {
+		return $routeProvider.when('/', {
 			controller: 'QCtrl',
 			templateUrl: 'templates/questions.html'
 		}).when('/:id', {
@@ -59,9 +59,9 @@ webpackJsonp([0],[
 
 	exports.default = AppConfig;
 
-/***/ },
+/***/ }),
 /* 6 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 
@@ -129,9 +129,9 @@ webpackJsonp([0],[
 
 	exports.default = ACtrl;
 
-/***/ },
+/***/ }),
 /* 7 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 
@@ -183,9 +183,9 @@ webpackJsonp([0],[
 
 	exports.default = QCtrl;
 
-/***/ },
+/***/ }),
 /* 8 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -231,5 +231,5 @@ webpackJsonp([0],[
 
 	exports.default = dataService;
 
-/***/ }
+/***/ })
 ]);
