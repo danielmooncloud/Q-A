@@ -1,7 +1,10 @@
 		<div class="main">
-			<form>
-				<div class="form-group new">
-					<input id="new-question-input" type="text" ng-model="input">
+			<div class="error-box" ng-show="error.current">
+				{{error.message}}
+			</div>
+			<form class="question-form">
+				<div>
+					<input type="text" ng-model="input">
 					
 					<button class="submit" ng-click="addQuestion()">Add Question</button>
 				</div>
@@ -10,20 +13,18 @@
 		
 			<div class="row" ng-repeat="question in questions">
 
-				<div class="col-xs-1">
-				</div> 
-				
-			
-				<div class="col-xs-9">	
-					<h3 class="asks">{{question.createdBy}} asks:</h3>
-					<label class="text">{{question.text}}</label>
-					<a href="#!/{{question._id}}"><span class="pull-right arrows">>>></span></a>	
+				<div class="text">
+					<div class="labels">	
+						<h3 class="asks">{{question.createdBy}} asks:</h3>
+						<label >{{question.text}}</label>
+					</div>
+					<div class="arrows">
+						<a href="#!/{{question._id}}"><span>>>></span></a>	
+					</div>
 				</div>
 				
-				<div class="col-xs-2">
-					
-					<span class="pull-right delete" ng-hide="question.notMine" ng-click="deleteQuestion(question)">X</span>
-					
+				<div class="delete">
+					<span ng-hide="question.notMine" ng-click="deleteQuestion(question)">X</span>
 				</div>
 			</div>	
 			

@@ -5,36 +5,28 @@
 					<h4 class="author"> - {{question.createdBy}}</h4>
 				</div>
 				
-
-				<form>	
-					<div class="form-group new">
-						<input id="new-answer-input" type="text" ng-model="input">
-						
+				<form form class="answer-form">	
+					<div>
+						<input type="text" ng-model="input">
 						<button class="submit" ng-click="addAnswer()">Add Answer</button> 
 					</div>
 				</form>
 		
 
 				<div class="row" ng-repeat="answer in question.answers">
-					
-					<div class="col-xs-1">
-						<label ng-click="upvote(answer)" class="votes">{{answer.votes.length}}</label>
-						
-
+					<div class="vote">
+						<label ng-click="upvote(answer)">{{answer.votes.length}}</label>
 					</div>
-
-					<div class="col-xs-9">
-						<h3 class="asks">{{answer.createdBy}} replied:</h3>
-						<label  class="text" ng-click="answer.editing=true" ng-hide="answer.editing && !answer.notMine">{{answer.text}}</label>
-						<input ng-blur="updateAnswer(answer)" ng-show="answer.editing && !answer.notMine" type="text" ng-model="answer.text" class="editing-label"> 	
+					<div class="text">
+						<div class="labels">
+							<h3 class="asks">{{answer.createdBy}} replied:</h3>
+							<label ng-click="answer.editing=true" ng-hide="answer.editing && !answer.notMine">{{answer.text}}</label>
+							<input ng-blur="updateAnswer(answer)" ng-show="answer.editing && !answer.notMine" type="text" ng-model="answer.text" class="editing-label"> 
+						</div>
+					</div>		
+					<div class="delete">	
+						<span ng-hide="answer.notMine" class="delete" ng-click="deleteAnswer(answer)">X</span>	
 					</div>
-					
-					<div class="col-xs-2">	
-						<span ng-hide="answer.notMine" class="pull-right delete" ng-click="deleteAnswer(answer)">X</span>
-						
-					</div>	
-
-					
 				</div>
 			</div>
 		
