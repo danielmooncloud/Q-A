@@ -1,61 +1,85 @@
 
 
-const ACtrl = ($scope, $routeParams, dataService) => {
+const ACtrl = function($scope, $routeParams, dataService) {
 	
-	$scope.getCurrentUser = () => {
-		dataService.getCurrentUser((response) => {
+	$scope.addAnswer = async () => {
+		if($scope.inupt === "" || $scope.input === undefined) return;
+		try {
+			const answer = {
+				"text" : $scope.input,
+				"createdAt" : Date.now(),
+				"updatedAt" : Date.now(),
+				"votes" : []
+			}
+			await dataService.addAnswer($routeParams.id, answer);
+			getQuestion();
+			$scope.input = '';
+		} catch(err) {
+			console.error(err);
+		}
+	}
+
+
+	$scope.deleteAnswer = async (answer) => {
+		try {
+			await dataService.deleteAnswer($routeParams.id, answer);
+			getQuestion();
+		} catch(err) {
+			console.error(err);
+		}
+	}
+
+	$scope.upvote = async (answer) => {
+		if(answer.votes.indexOf($scope.currentUser) !== -1) return;
+		try {
+			answer.votes.push($scope.currentUser);
+			await dataService.updateAnswer($routeParams.id, answer);
+			getQuestion();
+		} catch(err) {
+			console.error(err);
+		}
+	}
+
+
+	const getCurrentUser = async () => {
+		try {
+			const response = await dataService.getCurrentUser();
 			$scope.currentUser = response.data.username;
-		})
-	} 
+		} catch(err) {
+			console.error(err);
+		}
+	}
 
-	$scope.getCurrentUser(); 
 
-
-	$scope.getQuestion = () => {
-		dataService.getQuestion($routeParams.id, (response) => {
+	const getQuestion = async () => {
+		try {
+			const response = await dataService.getQuestion($routeParams.id);
 			$scope.question = response.data;
 			$scope.answers = $scope.question.answers;
 			$scope.answers.forEach((answer) => {
-				if(answer.createdBy !== $scope.currentUser) {
-					answer.notMine = true;
-				} else {
-					answer.notMine = false;
-				}
-			})
-		})
-	} 
-
-	$scope.getQuestion();
-	
-	$scope.addAnswer = () => {
-		if($scope.input !== '' && $scope.input !== undefined) {
-			var answer = {
-			"text" : $scope.input,
-			"createdAt" : Date.now(),
-			"updatedAt" : Date.now(),
-			"votes" : []
-		}
-			dataService.addAnswer($routeParams.id, answer, $scope.getQuestion);
-			$scope.input = '';
+				answer.notMine = (answer.createdBy !== $scope.currentUser);
+			});
+			$scope.$apply();
+		} catch(err) {
+			console.error(err);
 		}
 	}
 
-	$scope.deleteAnswer = (answer) => dataService.deleteAnswer($routeParams.id, answer, $scope.getQuestion);
-	
 
-	$scope.updateAnswer = (answer) => {
-		answer.editing = false;
-		answer.updatedAt = Date.now();
-		dataService.updateAnswer($routeParams.id, answer, $scope.getQuestion);
-	}
-
-	$scope.upvote = (answer) => {
-		if(answer.votes.indexOf($scope.currentUser) === -1) {
-			answer.votes.push($scope.currentUser);
-			dataService.updateAnswer($routeParams.id, answer, $scope.getQuestion);
+	const updateAnswer = async (answer) => {
+		try {
+			answer.editing = false;
+			answer.updatedAt = Date.now();
+			await dataService.updateAnswer($routeParams.id, answer);
+			getQuestion();
+		} catch(err) {
+			console.error(err);
 		}
-		
 	}
+
+
+	getCurrentUser();
+	getQuestion();
 
 };
 

@@ -34,9 +34,7 @@ app.use((req, res, next) => {
 
 
 app.use(parser.json());
-app.use(parser.urlencoded({
-	extended: true
-}))
+app.use(parser.urlencoded({ extended: true }));
 
 
 app.use(express.static('public'));

@@ -1,13 +1,14 @@
 extends ./layout.pug
 block content
   body
-    form.register(method="POST" action="/")
-      div.form-group
-        label(for="username") Username: 
-        input#username(type="text" placeholder="username" name="username")
-      div.form-group
-        label(for="pw") Password: 
-        input#pw(type="password" placeholder="password" name="password")
-      button.login-button(type="submit") LOGIN
-      h4 Not registered?
-      a.signup(href="/register") SIGN UP
+    div.main
+      form.register(method="POST" action="/")
+        div
+          label(for="username") Username: 
+          input#username(type="text" placeholder="username" name="username")
+        div
+          label(for="pw") Password: 
+          input#pw(type="password" placeholder="password" name="password")
+        button.login-button(type="submit") LOGIN
+        h4 Not registered?
+        a.signup(href="/register") SIGN UP

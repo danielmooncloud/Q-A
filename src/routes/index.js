@@ -11,7 +11,9 @@ router.get('/qa', mid.requiresLogin, (req, res, next) =>  {
 	res.render('index');
 })
 
-router.get('/register', mid.loggedOut, (req, res, next) => res.render('register'));
+router.get('/register', mid.loggedOut, (req, res, next) => {
+	res.render('register');
+});
 
 router.post('/register', (req, res, next) => {
 	if(req.body.name && req.body.username && req.body.password && req.body.confirmPassword) {
@@ -51,7 +53,9 @@ router.get('/logout', (req, res, next) => {
 	}
 })
 
-router.get('/', mid.loggedOut, (req, res, next) => res.render('login'));
+router.get('/', mid.loggedOut, (req, res, next) => {
+	res.render('login');
+});
 
 
 //When a user logs in, the User model retrieves the record matching the username, 

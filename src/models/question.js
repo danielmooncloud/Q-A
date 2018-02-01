@@ -4,8 +4,8 @@ const mongoose = require('mongoose');
 
 
 const sortFunction = (a, b) => {
-	if(a.votes === b.votes) return b.updatedAt - a.updatedAt;
-	return b.votes - a.votes;
+	if(a.votes.length === b.votes.length) return b.updatedAt - a.updatedAt;
+	return b.votes.length - a.votes.length;
 }
 
 const AnswerSchema = new mongoose.Schema({

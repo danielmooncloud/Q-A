@@ -1,0 +1,257 @@
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower');
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background-image: url("/images/wood.jpg");
+	background-size: cover;
+	background-repeat: repeat-y;
+	font-family: 'Indie Flower';
+	font-weight: bold;
+	margin: 0;
+
+	.navbar {
+	    position: fixed;
+	    top: 0;
+	    width: 100%;
+	    background: rgba(1,1,1,.8);
+	    height: 60px;      
+   		display: flex;
+    	justify-content: space-between;
+    	border-bottom: 1px solid white;
+
+    	h3 {
+		    color: white;
+		    font-size: 24px;
+		    padding-left: 20px;
+		    display: block;
+		    margin-top: -10px;
+		    margin-bottom: 0;
+		    padding-top: 20px;
+		    font-weight: 100;
+    	}
+
+    	.logout {
+    		background: rgba(0,0,0,0);
+		    width: 80px;
+		    color: white;
+		    font-size: 16px;
+		    margin-right: 20px;
+		    height: 40px;
+		    margin-top: 8px;
+
+		    a {
+	    	    color: white;
+			    text-decoration: none;
+			    font-family: 'Indie Flower';
+			    font-size: 20px;
+		    }
+    	}
+	}
+
+	.main {
+
+		.register {
+			width: 500px;
+		    margin: 100px auto;
+		    background: rgba(1, 1, 1, .7);
+		    padding: 50px;
+		    border-radius: 3px;
+		    color: white;
+		    @media (max-width: 500px) {
+		    	width: 100%;
+		    }
+
+		    input {
+		    	width: 100%;
+		    	margin-top: 10px;
+		    }
+
+		    label {
+				width: 100%;
+			}
+
+		    button {
+		    	margin-top: 50px;
+			    width: 100px;
+			    height: 35px;
+			    background: rgba(0,0,0,0);
+			    color: white;
+			    font-family: 'Indie Flower';
+			    font-size: 18px;
+			    outline: none;
+		    }
+		}
+
+		.question-form {
+			margin: 200px auto 80px;
+		}
+
+		.answer-form {
+			margin: 50px auto 80px;
+		}
+
+		.question-form, .answer-form {
+		    width: 800px;
+		    @media (max-width: 992px) {
+		    	width: 80%;
+		    }
+
+    		div {
+    			display: flex;
+
+    			input {
+    				width: 80%;
+    			}
+
+    			button {
+    				width: 15%;
+    				font-family: 'Indie Flower';
+				    width: 20%;
+				    min-width: 150px;
+				    background: rgba(1,1,1,.5);
+				    font-size: 20px;
+				    color: white;
+				    outline: none;
+				    @media (max-width: 992px) {
+				    	margin-top: 30px;
+				    }
+				}
+    		}
+		}
+
+		form {
+		    div {
+		    	margin-top: 30px;
+		    	@media (max-width: 991px) {
+		    		flex-direction: column;
+   					align-items: center;
+		    	}
+
+		    	label {
+		    		display: block;
+		    		font-size: 36px;
+		    	}
+
+		    	input {
+	    		    display: block;
+				    height: 40px;
+				    padding-left: 14px;
+				    font-size: 28px;
+				    background: rgba(255, 255, 255, 0.5);
+				    border: 3px solid black;
+				    font-family: 'Indie Flower';
+				    &:focus {
+				    	outline: none;
+				    }
+		    	}
+		    }
+
+		    a {
+		    	color: #4A9AD3;
+		    	font-size: 22px;
+		    	text-decoration: none;
+		    	&:hover {
+		    		color: #23527c;
+    				text-decoration: underline;
+		    	}
+		    }
+		}
+
+		.row {
+		    background: rgba(255,255,255,.5);
+		    width: 1000px;
+		    margin: auto;
+		    border: 3px solid black;
+		    border-radius: 3px;
+		    margin-top: 20px;
+		    position: relative;
+		    height: 80px;
+		    display: flex;
+		    @media (max-width: 1000px) {
+		    	width: 100%;
+		    }
+
+		    .vote {
+		    	width: 60px;
+			    text-align: right;
+			    padding-top: 15px;
+			    @media (max-width: 850px) {
+			    	text-align: center;
+			    }
+
+			    label {
+			    	font-size: 30px;
+			    }
+		    }
+
+		    .text {
+	    	    width: 100%;
+			    height: 100%;
+			    display: flex;
+
+		    	.labels {
+		    		width: 80%;
+    				display: flex;
+    				flex-direction: column;
+    				padding-left: 100px;
+    				justify-content: space-between;
+    				@media (max-width: 766px) {
+    					padding-left: 20px;
+    				}
+
+		    		h3 {
+		    			margin: 0;
+					    font-size: 20px;
+					    color: #2C4770;
+		    		}
+
+		    		label {
+		    			font-size: 24px;
+		    			overflow: hidden;
+		    		}
+		    	}
+
+		    	.arrows {
+		    		font-size: 30px;
+   					padding-top: 30px;
+   					padding-left: 15px;
+
+   					a {
+   						text-decoration: none;
+    					color: black;
+   					}
+		    	}
+		    }
+
+		    .delete {
+	    	    position: absolute;
+			    right: 5px;
+			    top: 2px;
+			    font-size: 20px;
+			    z-index: 10;
+		    }
+		}
+
+		.question {
+		    width: 60%;
+		    min-height: 100px;
+		    margin: 15% auto 0;
+		    padding-top: 15px;
+		    color: white;
+		    text-align: center;
+
+		    label {
+		    	font-size: 40px;
+		    }
+
+		    .author {
+		    	margin-top: 20px;
+    			padding-left: 80%;
+		    }
+		}
+
+	}
+}

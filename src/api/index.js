@@ -31,7 +31,9 @@ router.param("aID", (req, res, next, id) => {
 })
 
 
-router.get('/username', mid.requiresLogin, (req, res, next) => res.json({"username" : req.session.username})); 
+router.get('/username', mid.requiresLogin, (req, res, next) => {
+	res.json({"username" : req.session.username}); 
+})
 
 router.get('/questions', (req, res, next) => {
 	Question.find({})
@@ -58,7 +60,9 @@ router.delete('/questions/:qID', (req, res, next) => {
 	})
 })
 
-router.get('/questions/:qID', (req, res, next) => res.json(req.question));
+router.get('/questions/:qID', (req, res, next) => {
+	res.json(req.question);
+})
 
 router.post('/questions/:qID/answers', (req, res, next) => {
 	req.body.createdBy = req.session.username;

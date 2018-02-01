@@ -1,48 +1,73 @@
 
-const QCtrl = ($scope, dataService) => {
-
-	$scope.getCurrentUser = () => {
-		dataService.getCurrentUser((response) => {
-			$scope.currentUser = response.data.username;
-		})
-	} 
-
-	$scope.getCurrentUser(); 
-
-
-
-	$scope.getQuestions = () => {
-		dataService.getQuestions((response) => {
-			$scope.questions = response.data;
-			$scope.questions.forEach((question) => {
-				if(question.createdBy !== $scope.currentUser) {
-					question.notMine = true;
-				} else {
-					question.notMine = false;
-				}
-			})
-		})
-	}
-
-	$scope.getQuestions();
+const QCtrl = function($scope, dataService) {
 	
 
-	$scope.addQuestion = () => {
-		if($scope.input !== '' && $scope.input !== undefined) {
+	$scope.addQuestion = async () => {
+		if($scope.input === '' || $scope.input === undefined) return;
+		try {
 			var question = {
 				"text" : $scope.input,
 				"createdAt" : Date.now()
 			} 
-
-			dataService.addQuestion(question, $scope.getQuestions);
+			await dataService.addQuestion(question);
+			getQuestions();
 			$scope.input = '';
-		}
-		
+		} catch(err) {
+			console.error(err);
+		}	
 	}
 
-	$scope.deleteQuestion = (question) => {
-		dataService.deleteQuestion(question, $scope.getQuestions);
+	$scope.deleteQuestion = async (question) => {
+		try {
+			await dataService.deleteQuestion(question);
+			getQuestions();
+		} catch(err) {
+			console.error(err);
+		}
 	}
+
+
+	const getCurrentUser = async () => {
+		try {
+			const response = await dataService.getCurrentUser();
+			$scope.currentUser = response.data.username;
+		} catch(err) {
+			console.error(err);
+		}
+	} 
+
+	
+	const getQuestions = async () => {
+		try {
+			const response = await dataService.getQuestions();
+			$scope.questions = response.data;
+			$scope.questions.forEach((question) => {
+				question.notMine = (question.createdBy !== $scope.currentUser)
+			});
+			$scope.$apply();
+		} catch(err) {
+			createErrorMessage("Oops! Something went wrong. Please Try Again.");
+		}
+	}
+
+	$scope.error = {
+		current: false,
+		message: ""
+	}
+
+	const createErrorMessage = (message) => {
+		$scope.error.current = true;
+		$scope.error.message = message;
+	}
+
+	const clearErrorMessage = () => {
+		$scope.error.current = false;
+		$scope.error.message = "";
+	}
+	
+
+	getCurrentUser(); 
+	getQuestions();
 }
 
 export default QCtrl;

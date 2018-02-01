@@ -2,21 +2,37 @@
 
 const dataService = function($http) {
 	
-	this.getCurrentUser = callback => $http.get('/api/username').then(callback);
+	this.getCurrentUser = () => {
+		return $http.get('/api/username');
+	}
 	
-	this.getQuestions = callback => $http.get('/api/questions').then(callback);
+	this.getQuestions = () => {
+		return $http.get('/api/questions');
+	}
 
-	this.addQuestion = (question, callback) => $http.post('/api/questions', question).then(callback);
+	this.addQuestion = (question) => {
+		return $http.post('/api/questions', question);
+	}
 
-	this.deleteQuestion = (question, callback) => $http.delete('/api/questions/' + question._id).then(callback);
+	this.deleteQuestion = (question) => {
+		return $http.delete('/api/questions/' + question._id)
+	};
 
-	this.getQuestion = (id, callback) => $http.get('/api/questions/' + id).then(callback);
+	this.getQuestion = (id) => {
+		return $http.get('/api/questions/' + id)
+	};
 
-	this.addAnswer = (id, answer, callback) => $http.post('/api/questions/' + id + '/answers', answer).then(callback);
+	this.addAnswer = (id, answer) => {
+		return $http.post('/api/questions/' + id + '/answers', answer);
+	}
 
-	this.deleteAnswer = (id, answer, callback) => $http.delete('/api/questions/' + id + '/answers/' + answer._id).then(callback);
+	this.deleteAnswer = (id, answer) => {
+		return $http.delete('/api/questions/' + id + '/answers/' + answer._id);
+	}
 	
-	this.updateAnswer = (id, answer, callback) => $http.put('/api/questions/' + id + '/answers/' + answer._id, answer).then(callback);
+	this.updateAnswer = (id, answer) => {
+		return $http.put('/api/questions/' + id + '/answers/' + answer._id, answer);
+	}
 
 };
 
