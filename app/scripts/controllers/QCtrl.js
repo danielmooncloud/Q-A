@@ -10,10 +10,10 @@ const QCtrl = function($scope, dataService) {
 				"createdAt" : Date.now()
 			} 
 			await dataService.addQuestion(question);
-			getQuestions();
 			$scope.input = '';
+			getQuestions();
 		} catch(err) {
-			console.error(err);
+			console.error(err)
 		}	
 	}
 
@@ -22,7 +22,7 @@ const QCtrl = function($scope, dataService) {
 			await dataService.deleteQuestion(question);
 			getQuestions();
 		} catch(err) {
-			console.error(err);
+			console.error(err)
 		}
 	}
 
@@ -31,8 +31,9 @@ const QCtrl = function($scope, dataService) {
 		try {
 			const response = await dataService.getCurrentUser();
 			$scope.currentUser = response.data.username;
+			$scope.$apply();
 		} catch(err) {
-			console.error(err);
+			console.error(err)
 		}
 	} 
 
@@ -46,23 +47,13 @@ const QCtrl = function($scope, dataService) {
 			});
 			$scope.$apply();
 		} catch(err) {
-			createErrorMessage("Oops! Something went wrong. Please Try Again.");
+			console.error(err)
 		}
 	}
 
 	$scope.error = {
 		current: false,
 		message: ""
-	}
-
-	const createErrorMessage = (message) => {
-		$scope.error.current = true;
-		$scope.error.message = message;
-	}
-
-	const clearErrorMessage = () => {
-		$scope.error.current = false;
-		$scope.error.message = "";
 	}
 	
 

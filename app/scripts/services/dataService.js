@@ -7,11 +7,11 @@ const dataService = function($http) {
 	}
 	
 	this.getQuestions = () => {
-		return $http.get('/api/questions');
+		return $http.get('/api/questions/');
 	}
 
 	this.addQuestion = (question) => {
-		return $http.post('/api/questions', question);
+		return $http.post('/api/questions/', question);
 	}
 
 	this.deleteQuestion = (question) => {

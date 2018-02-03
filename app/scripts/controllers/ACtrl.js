@@ -15,7 +15,7 @@ const ACtrl = function($scope, $routeParams, dataService) {
 			getQuestion();
 			$scope.input = '';
 		} catch(err) {
-			console.error(err);
+			console.error(err)
 		}
 	}
 
@@ -25,9 +25,10 @@ const ACtrl = function($scope, $routeParams, dataService) {
 			await dataService.deleteAnswer($routeParams.id, answer);
 			getQuestion();
 		} catch(err) {
-			console.error(err);
+			console.error(err)
 		}
 	}
+
 
 	$scope.upvote = async (answer) => {
 		if(answer.votes.indexOf($scope.currentUser) !== -1) return;
@@ -36,7 +37,7 @@ const ACtrl = function($scope, $routeParams, dataService) {
 			await dataService.updateAnswer($routeParams.id, answer);
 			getQuestion();
 		} catch(err) {
-			console.error(err);
+			console.error(err)
 		}
 	}
 
@@ -46,7 +47,7 @@ const ACtrl = function($scope, $routeParams, dataService) {
 			const response = await dataService.getCurrentUser();
 			$scope.currentUser = response.data.username;
 		} catch(err) {
-			console.error(err);
+			console.error(err)
 		}
 	}
 
@@ -61,7 +62,7 @@ const ACtrl = function($scope, $routeParams, dataService) {
 			});
 			$scope.$apply();
 		} catch(err) {
-			console.error(err);
+			console.error(err)
 		}
 	}
 
@@ -73,7 +74,7 @@ const ACtrl = function($scope, $routeParams, dataService) {
 			await dataService.updateAnswer($routeParams.id, answer);
 			getQuestion();
 		} catch(err) {
-			console.error(err);
+			console.error(err)
 		}
 	}
 

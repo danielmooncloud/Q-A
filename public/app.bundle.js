@@ -172,8 +172,8 @@ const QCtrl = function ($scope, dataService) {
 				"createdAt": Date.now()
 			};
 			yield dataService.addQuestion(question);
-			getQuestions();
 			$scope.input = '';
+			getQuestions();
 		} catch (err) {
 			console.error(err);
 		}
@@ -199,6 +199,7 @@ const QCtrl = function ($scope, dataService) {
 			try {
 				const response = yield dataService.getCurrentUser();
 				$scope.currentUser = response.data.username;
+				$scope.$apply();
 			} catch (err) {
 				console.error(err);
 			}
@@ -219,7 +220,7 @@ const QCtrl = function ($scope, dataService) {
 				});
 				$scope.$apply();
 			} catch (err) {
-				createErrorMessage("Oops! Something went wrong. Please Try Again.");
+				console.error(err);
 			}
 		});
 
@@ -231,16 +232,6 @@ const QCtrl = function ($scope, dataService) {
 	$scope.error = {
 		current: false,
 		message: ""
-	};
-
-	const createErrorMessage = message => {
-		$scope.error.current = true;
-		$scope.error.message = message;
-	};
-
-	const clearErrorMessage = () => {
-		$scope.error.current = false;
-		$scope.error.message = "";
 	};
 
 	getCurrentUser();
@@ -263,11 +254,11 @@ const dataService = function ($http) {
 	};
 
 	this.getQuestions = () => {
-		return $http.get('/api/questions');
+		return $http.get('/api/questions/');
 	};
 
 	this.addQuestion = question => {
-		return $http.post('/api/questions', question);
+		return $http.post('/api/questions/', question);
 	};
 
 	this.deleteQuestion = question => {

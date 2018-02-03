@@ -3,7 +3,7 @@
 }
 
 body {
-  background-image: url("/images/wood.jpg");
+  background: #9a7979;
   background-size: cover;
   background-repeat: repeat-y;
   font-family: 'Indie Flower';
@@ -257,6 +257,7 @@ body .main .row .delete {
   top: 2px;
   font-size: 20px;
   z-index: 10;
+  cursor: pointer;
 }
 
 body .main .question {
