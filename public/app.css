@@ -34,7 +34,7 @@ body .navbar h3 {
 }
 
 body .navbar .logout {
-  background: transparent;
+  background: rgba(0, 0, 0, 0);
   width: 80px;
   color: white;
   font-size: 16px;
@@ -113,7 +113,7 @@ body .main .register button {
   margin-top: 50px;
   width: 100px;
   height: 35px;
-  background: transparent;
+  background: rgba(0, 0, 0, 0);
   color: white;
   font-family: 'Indie Flower';
   font-size: 18px;
