@@ -11,11 +11,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular_route__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular_route___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_angular_route__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__scripts_config_AppConfig_js__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__scripts_controllers_ACtrl_js__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__scripts_controllers_QCtrl_js__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__scripts_services_dataService_js__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__scss_application_scss__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__scss_application_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__scss_application_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__scripts_directives_handleError_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__scripts_controllers_ACtrl_js__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__scripts_controllers_QCtrl_js__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__scripts_services_dataService_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__scss_application_scss__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__scss_application_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__scss_application_scss__);
 
 
 
@@ -24,7 +25,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-const app = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('qaApp', [__WEBPACK_IMPORTED_MODULE_1_angular_route___default.a]).config(["$routeProvider", __WEBPACK_IMPORTED_MODULE_2__scripts_config_AppConfig_js__["a" /* default */]]).service('dataService', ['$http', __WEBPACK_IMPORTED_MODULE_5__scripts_services_dataService_js__["a" /* default */]]).controller('ACtrl', ['$scope', '$routeParams', "dataService", __WEBPACK_IMPORTED_MODULE_3__scripts_controllers_ACtrl_js__["a" /* default */]]).controller('QCtrl', ['$scope', "dataService", __WEBPACK_IMPORTED_MODULE_4__scripts_controllers_QCtrl_js__["a" /* default */]]);
+
+__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module("qaApp", [__WEBPACK_IMPORTED_MODULE_1_angular_route___default.a]).config(["$routeProvider", __WEBPACK_IMPORTED_MODULE_2__scripts_config_AppConfig_js__["a" /* default */]]).service("dataService", ["$http", __WEBPACK_IMPORTED_MODULE_6__scripts_services_dataService_js__["a" /* default */]]).directive("handleError", [__WEBPACK_IMPORTED_MODULE_3__scripts_directives_handleError_js__["a" /* default */]]).controller("ACtrl", ["$scope", "$routeParams", "dataService", __WEBPACK_IMPORTED_MODULE_4__scripts_controllers_ACtrl_js__["a" /* default */]]).controller("QCtrl", ["$scope", "dataService", __WEBPACK_IMPORTED_MODULE_5__scripts_controllers_QCtrl_js__["a" /* default */]]);
 
 /***/ }),
 /* 3 */,
@@ -34,7 +36,7 @@ const app = __WEBPACK_IMPORTED_MODULE_0_angular___default.a.module('qaApp', [__W
 
 "use strict";
 const AppConfig = function ($routeProvider) {
-	$routeProvider.when('/', { controller: 'QCtrl', templateUrl: 'templates/questions.html' }).when('/:id', { controller: 'ACtrl', templateUrl: 'templates/answers.html' }).otherwise({ redirectTo: '/' });
+	$routeProvider.when("/", { controller: "QCtrl", templateUrl: "templates/questions.html" }).when("/:id", { controller: "ACtrl", templateUrl: "templates/answers.html" }).otherwise({ redirectTo: "/" });
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (AppConfig);
@@ -44,13 +46,31 @@ const AppConfig = function ($routeProvider) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+
+const handleError = () => {
+
+	const template = `<div class="error-box" ng-show="error">
+			<h2>Oops! Something went wrong. Please refresh and try again.</h2>
+			<span ng-click="error=false">X</span>
+		</div>`;
+
+	return { template };
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (handleError);
+
+/***/ }),
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 const ACtrl = function ($scope, $routeParams, dataService) {
 
 	$scope.addAnswer = _asyncToGenerator(function* () {
-		if ($scope.inupt === "" || $scope.input === undefined) return;
 		try {
+			if ($scope.inupt === "" || $scope.input === undefined) return;
 			const answer = {
 				"text": $scope.input,
 				"createdAt": Date.now(),
@@ -59,9 +79,9 @@ const ACtrl = function ($scope, $routeParams, dataService) {
 			};
 			yield dataService.addAnswer($routeParams.id, answer);
 			getQuestion();
-			$scope.input = '';
+			$scope.input = "";
 		} catch (err) {
-			console.error(err);
+			$scope.error = true;
 		}
 	});
 
@@ -71,7 +91,7 @@ const ACtrl = function ($scope, $routeParams, dataService) {
 				yield dataService.deleteAnswer($routeParams.id, answer);
 				getQuestion();
 			} catch (err) {
-				console.error(err);
+				$scope.error = true;
 			}
 		});
 
@@ -82,13 +102,13 @@ const ACtrl = function ($scope, $routeParams, dataService) {
 
 	$scope.upvote = (() => {
 		var _ref3 = _asyncToGenerator(function* (answer) {
-			if (answer.votes.indexOf($scope.currentUser) !== -1) return;
 			try {
+				if (answer.votes.indexOf($scope.currentUser) !== -1) return;
 				answer.votes.push($scope.currentUser);
 				yield dataService.updateAnswer($routeParams.id, answer);
 				getQuestion();
 			} catch (err) {
-				console.error(err);
+				$scope.error = true;
 			}
 		});
 
@@ -103,7 +123,7 @@ const ACtrl = function ($scope, $routeParams, dataService) {
 				const response = yield dataService.getCurrentUser();
 				$scope.currentUser = response.data.username;
 			} catch (err) {
-				console.error(err);
+				$scope.error = true;
 			}
 		});
 
@@ -123,29 +143,12 @@ const ACtrl = function ($scope, $routeParams, dataService) {
 				});
 				$scope.$apply();
 			} catch (err) {
-				console.error(err);
+				$scope.error = true;
 			}
 		});
 
 		return function getQuestion() {
 			return _ref5.apply(this, arguments);
-		};
-	})();
-
-	const updateAnswer = (() => {
-		var _ref6 = _asyncToGenerator(function* (answer) {
-			try {
-				answer.editing = false;
-				answer.updatedAt = Date.now();
-				yield dataService.updateAnswer($routeParams.id, answer);
-				getQuestion();
-			} catch (err) {
-				console.error(err);
-			}
-		});
-
-		return function updateAnswer(_x3) {
-			return _ref6.apply(this, arguments);
 		};
 	})();
 
@@ -156,7 +159,7 @@ const ACtrl = function ($scope, $routeParams, dataService) {
 /* harmony default export */ __webpack_exports__["a"] = (ACtrl);
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -165,17 +168,17 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 const QCtrl = function ($scope, dataService) {
 
 	$scope.addQuestion = _asyncToGenerator(function* () {
-		if ($scope.input === '' || $scope.input === undefined) return;
 		try {
+			if ($scope.input === "" || $scope.input === undefined) return;
 			var question = {
 				"text": $scope.input,
 				"createdAt": Date.now()
 			};
 			yield dataService.addQuestion(question);
-			$scope.input = '';
+			$scope.input = "";
 			getQuestions();
 		} catch (err) {
-			console.error(err);
+			$scope.error = true;
 		}
 	});
 
@@ -185,7 +188,7 @@ const QCtrl = function ($scope, dataService) {
 				yield dataService.deleteQuestion(question);
 				getQuestions();
 			} catch (err) {
-				console.error(err);
+				$scope.error = true;
 			}
 		});
 
@@ -201,7 +204,7 @@ const QCtrl = function ($scope, dataService) {
 				$scope.currentUser = response.data.username;
 				$scope.$apply();
 			} catch (err) {
-				console.error(err);
+				$scope.error = true;
 			}
 		});
 
@@ -220,7 +223,7 @@ const QCtrl = function ($scope, dataService) {
 				});
 				$scope.$apply();
 			} catch (err) {
-				console.error(err);
+				$scope.error = true;
 			}
 		});
 
@@ -229,11 +232,6 @@ const QCtrl = function ($scope, dataService) {
 		};
 	})();
 
-	$scope.error = {
-		current: false,
-		message: ""
-	};
-
 	getCurrentUser();
 	getQuestions();
 };
@@ -241,7 +239,7 @@ const QCtrl = function ($scope, dataService) {
 /* harmony default export */ __webpack_exports__["a"] = (QCtrl);
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -250,42 +248,42 @@ const QCtrl = function ($scope, dataService) {
 const dataService = function ($http) {
 
 	this.getCurrentUser = () => {
-		return $http.get('/api/username');
+		return $http.get("/api/username");
 	};
 
 	this.getQuestions = () => {
-		return $http.get('/api/questions/');
+		return $http.get("/api/questions/");
 	};
 
 	this.addQuestion = question => {
-		return $http.post('/api/questions/', question);
+		return $http.post("/api/questions/", question);
 	};
 
 	this.deleteQuestion = question => {
-		return $http.delete('/api/questions/' + question._id);
+		return $http.delete("/api/questions/" + question._id);
 	};
 
 	this.getQuestion = id => {
-		return $http.get('/api/questions/' + id);
+		return $http.get("/api/questions/" + id);
 	};
 
 	this.addAnswer = (id, answer) => {
-		return $http.post('/api/questions/' + id + '/answers', answer);
+		return $http.post("/api/questions/" + id + "/answers", answer);
 	};
 
 	this.deleteAnswer = (id, answer) => {
-		return $http.delete('/api/questions/' + id + '/answers/' + answer._id);
+		return $http.delete("/api/questions/" + id + "/answers/" + answer._id);
 	};
 
 	this.updateAnswer = (id, answer) => {
-		return $http.put('/api/questions/' + id + '/answers/' + answer._id, answer);
+		return $http.put("/api/questions/" + id + "/answers/" + answer._id, answer);
 	};
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (dataService);
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

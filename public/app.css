@@ -50,6 +50,41 @@ body .navbar .logout a {
   font-size: 20px;
 }
 
+body .main-error {
+  width: 500px;
+  height: 200px;
+  margin: 10% auto;
+  background: rgba(1, 1, 1, 0.8);
+  color: white;
+  text-align: center;
+  border-radius: 5px;
+  padding-top: 50px;
+}
+
+body .error-box {
+  width: 700px;
+  height: 100px;
+  background: black;
+  color: white;
+  position: fixed;
+  left: 50%;
+  margin-left: -350px;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+  z-index: 10;
+}
+
+body .error-box h2 {
+  padding-top: 10px;
+}
+
+body .error-box span {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
 body .main .register {
   width: 500px;
   margin: 100px auto;

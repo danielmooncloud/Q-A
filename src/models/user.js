@@ -24,7 +24,7 @@ const UserSchema = new mongoose.Schema({
 
 // Takes a username and password, looks up the record with a matching username and verifies the password
 UserSchema.statics.authenticate = (username, password, callback) => {
-	User.findOne({ username: username})
+	User.findOne({ username })
 		.exec((error, user) => {
 			if(error) return callback(error)
 			else if(!user) {
@@ -47,12 +47,12 @@ UserSchema.statics.authenticate = (username, password, callback) => {
 
 
 // encrypts the supplied password before saving the user
-UserSchema.pre("save", (next) => {
+UserSchema.pre("save", function(next) {
 	const user = this;
 	bcrypt.hash(user.password, 10, (err, hash) => {
 		if(err) return next(err);
 		user.password = hash;
-		next();
+		return next();
 	})
 })
 

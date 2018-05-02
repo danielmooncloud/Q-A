@@ -2,22 +2,24 @@
 
 const ACtrl = function($scope, $routeParams, dataService) {
 	
+
+
 	$scope.addAnswer = async () => {
-		if($scope.inupt === "" || $scope.input === undefined) return;
 		try {
+			if($scope.inupt === "" || $scope.input === undefined) return;
 			const answer = {
 				"text" : $scope.input,
 				"createdAt" : Date.now(),
 				"updatedAt" : Date.now(),
 				"votes" : []
-			}
+			};
 			await dataService.addAnswer($routeParams.id, answer);
 			getQuestion();
-			$scope.input = '';
+			$scope.input = "";
 		} catch(err) {
-			console.error(err)
+			$scope.error = true;
 		}
-	}
+	};
 
 
 	$scope.deleteAnswer = async (answer) => {
@@ -25,21 +27,21 @@ const ACtrl = function($scope, $routeParams, dataService) {
 			await dataService.deleteAnswer($routeParams.id, answer);
 			getQuestion();
 		} catch(err) {
-			console.error(err)
+			$scope.error = true;
 		}
-	}
+	};
 
 
 	$scope.upvote = async (answer) => {
-		if(answer.votes.indexOf($scope.currentUser) !== -1) return;
 		try {
+			if(answer.votes.indexOf($scope.currentUser) !== -1) return;
 			answer.votes.push($scope.currentUser);
 			await dataService.updateAnswer($routeParams.id, answer);
 			getQuestion();
 		} catch(err) {
-			console.error(err)
+			$scope.error = true;
 		}
-	}
+	};
 
 
 	const getCurrentUser = async () => {
@@ -47,9 +49,9 @@ const ACtrl = function($scope, $routeParams, dataService) {
 			const response = await dataService.getCurrentUser();
 			$scope.currentUser = response.data.username;
 		} catch(err) {
-			console.error(err)
+			$scope.error = true;
 		}
-	}
+	};
 
 
 	const getQuestion = async () => {
@@ -62,22 +64,9 @@ const ACtrl = function($scope, $routeParams, dataService) {
 			});
 			$scope.$apply();
 		} catch(err) {
-			console.error(err)
+			$scope.error = true;
 		}
-	}
-
-
-	const updateAnswer = async (answer) => {
-		try {
-			answer.editing = false;
-			answer.updatedAt = Date.now();
-			await dataService.updateAnswer($routeParams.id, answer);
-			getQuestion();
-		} catch(err) {
-			console.error(err)
-		}
-	}
-
+	};
 
 	getCurrentUser();
 	getQuestion();

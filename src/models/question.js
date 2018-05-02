@@ -4,8 +4,9 @@ const mongoose = require('mongoose');
 
 
 const sortFunction = (a, b) => {
-	if(a.votes.length === b.votes.length) return b.updatedAt - a.updatedAt;
-	return b.votes.length - a.votes.length;
+	return a.votes.length === b.votes.length ? 
+		b.updatedAt - a.updatedAt : 
+		b.votes.length - a.votes.length;
 }
 
 const AnswerSchema = new mongoose.Schema({
@@ -18,7 +19,7 @@ const AnswerSchema = new mongoose.Schema({
 
 AnswerSchema.method("update", function(updates, callback) {
 	Object.assign(this, updates);
-	this.parent().save(callback);
+	return this.parent().save(callback);
 })
 
 
@@ -31,7 +32,7 @@ const QuestionSchema = new mongoose.Schema({
 
 QuestionSchema.pre("save", function(next) {
 	this.answers.sort(sortFunction);
-	next();
+	return next();
 })
 
 const Question = mongoose.model("Question", QuestionSchema);

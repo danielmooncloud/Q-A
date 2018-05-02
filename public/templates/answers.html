@@ -1,4 +1,5 @@
 			<div class="main">
+				<handle-error></handle-error>
 				<div class="question">
 					<label id="quote">{{question.text}}</label>
 					<h4 class="author"> - {{question.createdBy}}</h4>
@@ -19,8 +20,7 @@
 					<div class="text">
 						<div class="labels">
 							<h3 class="asks">{{answer.createdBy}} replied:</h3>
-							<label ng-click="answer.editing=true" ng-hide="answer.editing && !answer.notMine">{{answer.text}}</label>
-							<input ng-blur="updateAnswer(answer)" ng-show="answer.editing && !answer.notMine" type="text" ng-model="answer.text" class="editing-label"> 
+							<label >{{answer.text}}</label>
 						</div>
 					</div>		
 					<div class="delete">	

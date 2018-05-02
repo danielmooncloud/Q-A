@@ -3,28 +3,28 @@ const QCtrl = function($scope, dataService) {
 	
 
 	$scope.addQuestion = async () => {
-		if($scope.input === '' || $scope.input === undefined) return;
 		try {
+			if($scope.input === "" || $scope.input === undefined) return;
 			var question = {
 				"text" : $scope.input,
 				"createdAt" : Date.now()
-			} 
+			}; 
 			await dataService.addQuestion(question);
-			$scope.input = '';
+			$scope.input = "";
 			getQuestions();
 		} catch(err) {
-			console.error(err)
+			$scope.error = true;
 		}	
-	}
+	};
 
 	$scope.deleteQuestion = async (question) => {
 		try {
 			await dataService.deleteQuestion(question);
 			getQuestions();
 		} catch(err) {
-			console.error(err)
+			$scope.error = true;
 		}
-	}
+	};
 
 
 	const getCurrentUser = async () => {
@@ -33,9 +33,9 @@ const QCtrl = function($scope, dataService) {
 			$scope.currentUser = response.data.username;
 			$scope.$apply();
 		} catch(err) {
-			console.error(err)
+			$scope.error = true;
 		}
-	} 
+	}; 
 
 	
 	const getQuestions = async () => {
@@ -43,22 +43,17 @@ const QCtrl = function($scope, dataService) {
 			const response = await dataService.getQuestions();
 			$scope.questions = response.data;
 			$scope.questions.forEach((question) => {
-				question.notMine = (question.createdBy !== $scope.currentUser)
+				question.notMine = (question.createdBy !== $scope.currentUser);
 			});
 			$scope.$apply();
 		} catch(err) {
-			console.error(err)
+			$scope.error = true;
 		}
-	}
-
-	$scope.error = {
-		current: false,
-		message: ""
-	}
+	};
 	
 
 	getCurrentUser(); 
 	getQuestions();
-}
+};
 
 export default QCtrl;

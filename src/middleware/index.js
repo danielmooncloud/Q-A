@@ -5,7 +5,7 @@ const User = require('../models/user');
 
 const loggedOut = (req, res, next) => {
 	if(!(req.session && req.session.userId)) return next();
-	res.redirect("/qa");
+	return res.redirect("/qa");
 }
 
 const requiresLogin = (req, res, next) => {
